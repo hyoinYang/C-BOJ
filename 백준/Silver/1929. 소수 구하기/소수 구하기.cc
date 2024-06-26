@@ -1,16 +1,19 @@
 #include <iostream>
-#include <set>
+#include <vector>
 #include <math.h>
 using namespace std;
 
-bool checkPrime(int m) {
-	//cout << m << " "<< "\n";
-	if (m <= 1) return false;
-	if ((m != 2 && m % 2 == 0) ||(m != 3 && m % 3 == 0)) return false;
-	for (int i = 5; i * i <= m; i++) {
-		if (m % i == 0 || m % (i + 2) == 0) return false;
+vector<int> checkPrime(vector<int> nums, int m) {
+	for (int i = 0; i <= m; i++) {
+		nums.push_back(i);
 	}
-	return true;
+	for (int i = 2; i <= m; i++) {
+		if (nums[i] == 0) continue;
+		for (int j = 2 * i; j <= m; j += i) {
+			nums[j] = 0;
+		}
+	}
+	return nums;
 }
 
 int main() {
@@ -20,15 +23,16 @@ int main() {
 	int m, n;
 	cin >> m >> n;
 
-	set<int> nums;
+	vector<int> nums;
 
-	for (int i = m; i <= n; i++) {
-		if (checkPrime(i) == true) {
-			nums.insert(i);
+	nums = checkPrime(nums, n);
+
+	for (int i = m; i < nums.size(); i++) {
+		if (nums[i] != 0) {
+			if (i <= 1)
+				continue;
+			cout << nums[i] << "\n";
 		}
 	}
 
-	for (auto n : nums) {
-		cout << n << "\n";
-	}
 }
