@@ -1,61 +1,31 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <iostream>
 #include <stack>
-
 using namespace std;
 
+
 int main() {
-	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+	ios::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+	int n;
+	cin >> n;
 
-	int t;
-	cin >> t;
-	while (t--) {
-		stack<char> vpsTest;
-		int flag = 1;
-		string input;
-		cin >> input;
-
-		for (int idx = 0; idx < input.size(); idx++) {
-			if (vpsTest.size() > 0) {
-				switch (input[idx]) {
-				case')':
-					if (vpsTest.top() == '(') {
-						vpsTest.pop();
-						break;
-					}
-					else {
-						flag = 0;
-						break;
-					}
-				case'}':
-					if (vpsTest.top() == '{') {
-						vpsTest.pop();
-						break;
-					}
-					else {
-						flag = 0;
-						break;
-					}
-				case']':
-					if (vpsTest.top() == '[') {
-						vpsTest.pop();
-						break;
-					}
-					else {
-						flag = 0;
-						break;
-					}
-				default:
-					vpsTest.push(input[idx]);
+	while (n--) {
+		stack<char> vps;
+		bool isvps = true;
+		string sentence;
+		cin >> sentence;
+		for (char ch : sentence) {
+			if (ch == '(') vps.push(ch);
+			else if (ch == ')') {
+				if (vps.size() > 0 && vps.top() == '(') vps.pop();
+				else {
+					isvps = false;
+					break;
 				}
-			}
-			else {
-				vpsTest.push(input[idx]);
 			}
 		}
 		
-		if (flag == 1 && vpsTest.size() == 0) cout << "YES" << "\n";
+		if (isvps && vps.size() == 0) cout << "YES" << "\n";
 		else cout << "NO" << "\n";
 	}
 }
