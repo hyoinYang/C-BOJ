@@ -1,28 +1,22 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 int c, n;
-vector<pair<int, int>> input;
+int input[20][2];
 int dp[100001];
 
-void countDP() {
-	for (int i = 1; i <= n; i++) {
-		for (int j = 1; j <= 100000; j++) {
-			int cost = input[i].first;
-			int person = input[i].second;
-
-			if (j - cost >= 0) {
-				dp[j] = max(dp[j], dp[j - cost] + person);
-			}
+int countDP(int customer, int cityNum) {
+	int min = 100 * 1000;
+	int cost;
+	if (customer <= 0) return 0;
+	else if (dp[customer] > 0) return dp[customer];
+	else {
+		for (int i = 0; i < cityNum; i++) {
+			cost = countDP(customer - input[i][1], cityNum) + input[i][0];
+			min = cost < min ? cost : min;
 		}
-	}
-
-	for (int i = 1; i <= 100000; i++) {
-		if (dp[i] >= c) {
-			cout << i;
-			break;
-		}
+		dp[customer] = min;
+		return min;
 	}
 }
 
@@ -31,14 +25,14 @@ int main() {
 	cin.tie(0); cout.tie(0);
 
 	cin >> c >> n;
-	input.push_back({ 0, 0 });
 	for (int i = 0; i < n; i++) {
 		int a, b;
 		cin >> a >> b;
-		input.push_back({ a, b });
+		input[i][0] = a;
+		input[i][1] = b;
 	}
 
-	countDP();
+	cout << countDP(c, n);
 
 	return 0;
 
