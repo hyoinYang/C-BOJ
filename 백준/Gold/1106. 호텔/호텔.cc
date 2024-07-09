@@ -1,47 +1,45 @@
 #include <iostream>
 #include <vector>
-#include <cmath>
-
 using namespace std;
 
-int C, N;
-vector<pair<int, int>> v;
+int c, n;
+vector<pair<int, int>> input;
 int dp[100001];
 
-void solution() {
-    for (int i = 1; i <= N; i++) {
-        for (int j = 1; j <= 100000; j++) {
-            int cost = v[i].first;
-            int man = v[i].second;
+void countDP() {
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= 100000; j++) {
+			int cost = input[i].first;
+			int person = input[i].second;
 
-            if (j - cost >= 0) {
-                dp[j] = max(dp[j], dp[j - cost] + man);
-            }
-        }
-    }
+			if (j - cost >= 0) {
+				dp[j] = max(dp[j], dp[j - cost] + person);
+			}
+		}
+	}
 
-    for (int i = 1; i <= 100000; i++) {
-        if (dp[i] >= C) {
-            cout << i;
-            break;
-        }
-    }
+	for (int i = 1; i <= 100000; i++) {
+		if (dp[i] >= c) {
+			cout << i;
+			break;
+		}
+	}
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+	ios::sync_with_stdio(false);
+	cin.tie(0); cout.tie(0);
 
-    cin >> C >> N;
+	cin >> c >> n;
+	input.push_back({ 0, 0 });
+	for (int i = 0; i < n; i++) {
+		int a, b;
+		cin >> a >> b;
+		input.push_back({ a, b });
+	}
 
-    v.push_back({ 0,0 });
-    int a, b;
-    for (int i = 0; i < N; i++) {
-        cin >> a >> b;
-        v.push_back({ a,b });
-    }
+	countDP();
 
-    solution();
+	return 0;
 
-    return 0;
 }
