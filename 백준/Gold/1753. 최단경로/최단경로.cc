@@ -23,12 +23,9 @@ void dijkstra(int start, vector<pair<int, int>> graph[]) {
         if (cur_dist > dist[cur_node])
             continue;
 
-        //for (auto& edge : graph[cur_node]) {
-            //int nxt_node = edge.first;
-            //int nxt_dist = cur_dist + edge.second;
-        for (int i = 0; i < graph[cur_node].size(); i++) {
-            int nxt_node = graph[cur_node][i].first;
-            int nxt_dist = cur_dist + graph[cur_node][i].second;
+        for (auto& edge : graph[cur_node]) {
+            int nxt_node = edge.first;
+            int nxt_dist = cur_dist + edge.second;
 
             if (nxt_dist < dist[nxt_node]) {
                 dist[nxt_node] = nxt_dist;
@@ -57,7 +54,6 @@ int main() {
         graph[from].push_back({ to, cost });
         //graph[to].push_back({ from, cost });
     }
-    //vector<int> dist = dijkstra(0, numV, graph);
 
     for (int i = 1; i <= numV; i++) {
         dist[i] = INF;
