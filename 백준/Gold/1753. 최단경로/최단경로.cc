@@ -7,7 +7,7 @@ using namespace std;
 
 #define INF 987654321
 int numE, numV;
-int dist[20010];
+int dist[20001];
 
 void dijkstra(int start, vector<pair<int, int>> graph[]) {
     priority_queue<pair<int, int>> pq;
@@ -46,7 +46,7 @@ int main() {
 	cin.tie(0); cout.tie(0);
     int start;
     cin >> numV >> numE>>start;
-    vector<pair<int, int>> graph[20010];
+    vector<pair<int, int>> graph[20001];
   
     for (int i = 0; i < numE; i++) {
         int from, to, cost;
