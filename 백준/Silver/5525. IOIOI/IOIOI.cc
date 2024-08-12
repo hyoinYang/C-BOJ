@@ -11,32 +11,24 @@ int main() {
 	cin >> n >> m >> s;
 	int result = 0;
 	
-	vector<char> pa(2 * n + 1);
-	for (int idx = 0; idx < pa.size(); idx++) {
-		if (idx % 2 == 0) pa[idx] = 'I';
-		else pa[idx] = 'O';
-	}
-	
-
+	// O(N)
 	for (int i = 0; i < s.size(); i++) {
-		bool isP = false;
+		int numIOI = 0;
+		if (s[i] == 'O') continue;
+		else {
+			while (s[i + 1] == 'O' && s[i + 2] == 'I') {
+				numIOI++;
 
-		if (s[i] == 'I') {
-			for (int j = 0; j < pa.size(); j++) {
-				if (s[i+j] == pa[j]) {
-					isP = true;
+				if (numIOI == n) {
+					result++;
+					numIOI--;
 				}
-				else {
-					isP = false;
-					break;
-				}
+				i += 2;
 			}
-			if (isP) result++;
 		}
-		else
-			continue;
 
 	}
+
 	cout << result;
 
     return 0;
