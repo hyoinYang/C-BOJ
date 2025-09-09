@@ -12,14 +12,7 @@ void push(int x){
 }
 
 int pop(){
-    if (fro == rear)
-    {
-        return -1;
-    }
-    else{
-        int result = arr[fro++];
-        return result;
-    }
+    return (fro == rear)? -1 : arr[fro++]; 
 }
 
 int size(){
@@ -27,18 +20,15 @@ int size(){
 }
 
 int empty(){
-    if(fro == rear) return 1;
-    else return 0;
+    return (fro == rear)? 1 : 0;
 }
 
 int front(){
-    if(fro == rear) return -1;
-    else return arr[fro];
+    return (fro == rear)? -1 : arr[fro];
 }
 
 int back(){
-    if(fro == rear) return -1;
-    else return arr[rear-1];
+    return (fro == rear)? -1 : arr[rear-1];
 }
 
 
